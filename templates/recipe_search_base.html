@@ -1,0 +1,43 @@
+{% extends "base.html"%}
+{%block title%}Recipe Search{% endblock %}
+
+{% block content %}
+    <form id="recipeSearchForm" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label(class="form-control-label") }}
+            {{ form.name(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+
+    <hr>
+
+    {% if results %}
+    <h2>Search Results:</h2>
+    <ul>
+        {% for recipe in results %}
+            <li>
+                <strong>Recipe ID:</strong> {{ recipe['Recipe ID'] }}<br>
+                <strong>Recipe Title:</strong> {{ recipe['Recipe Title'] }}<br>
+                <strong>Description:</strong> {{ recipe['Description'] }}<br>
+                <strong>Instructions:</strong> {{ recipe['Instructions'] }}<br>
+                <strong>Prep Time:</strong> {{ recipe['Prep Time'] }}<br>
+                <strong>Cook Time:</strong> {{ recipe['Cook Time'] }}<br>
+                <strong>Servings:</strong> {{ recipe['Servings'] }}<br>
+                <strong>Cuisine:</strong> {{ recipe['Cuisine'] }}<br>
+                <strong>Difficulty:</strong> {{ recipe['Difficulty'] }}<br>
+                <strong>Ingredients:</strong> {{ recipe['Ingredients'] }}<br>
+                <strong>Image URL:</strong> {{ recipe['Image URL'] }}<br>
+                <img src="{{ url_for('static', filename=recipe['Image URL']) }}" alt="no image found"><br>
+
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+{% endblock %}

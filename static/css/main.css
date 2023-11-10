@@ -1,0 +1,53 @@
+/* colours:
+#C4DFDF
+#D2E9E9
+#E3F4F4
+#F8F6F4
+*/
+
+/* Box sizing for all elements */
+*,
+**::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Global styles */
+body, form {
+    background-color: #E3F4F4;
+    font-family: "Verdana", "Arial", "sans-serif";
+}
+
+/* Footer */
+footer {
+    font-size: 0.5em;
+}
+
+/* Heading styles */
+.heading {
+    font-size: 2.5em;
+}
+
+/* Buttons */
+.button {
+    font-family: "Verdana", "Arial", "sans-serif";
+    font-size: 1.6em;
+    font-weight: 500;
+    padding: 1em;
+    min-width: 10em;
+    background: #F8F6F4
+}
+
+.button:hover {
+    filter: brightness(1.3);
+}
+
+/* User input */
+#guess-input {
+    font-family: "Verdana", "Arial", "sans-serif";
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0.5em;
+}

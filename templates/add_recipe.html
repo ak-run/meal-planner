@@ -1,0 +1,61 @@
+{% extends "base.html"%}
+
+{% block title%}Add Recipe{% endblock %}
+
+{% block content%}
+
+<h1>Add Recipe</h1>
+    <form method="post" action="{{ url_for('add_recipe') }}">
+        {{ add_recipe_form.hidden_tag() }}
+
+        <div>
+            {{ add_recipe_form.title.label }}
+            {{ add_recipe_form.title(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.description.label }}
+            {{ add_recipe_form.description(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.instructions.label }}
+            {{ add_recipe_form.instructions(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.prep_time.label }}
+            {{ add_recipe_form.prep_time(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.cook_time.label }}
+            {{ add_recipe_form.cook_time(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.servings.label }}
+            {{ add_recipe_form.servings(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.cuisine.label }}
+            {{ add_recipe_form.cuisine(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.difficulty.label }}
+            {{ add_recipe_form.difficulty(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.image_url.label }}
+            {{ add_recipe_form.image_url(class="form-control") }}
+        </div>
+
+        <div>
+            {{ add_recipe_form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+{% endblock %}

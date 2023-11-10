@@ -1,0 +1,5 @@
+flask==3.0.0
+requests==2.31.0
+mysql-connector-python==8.1.0
+Flask-WTF==1.2.1
+bootstrap-flask==2.3.2

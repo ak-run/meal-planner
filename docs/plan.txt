@@ -1,0 +1,19 @@
+- Make function to add a recipe and flask form for it
+- think how to create menu and shopping list
+
+
+MAIN FUNCTIONS
+- find and display recipe
+- add a recipe
+- add recipe to weekly menu
+- get shopping list from weekly menu
+- display a weekly menu
+- save shopping list
+- save weekly menu
+
+Find and display a recipe
+- create a route
+- db utils
+- flask form
+- main.py function
+- test
