@@ -1,3 +1,5 @@
+import datetime
+
 class DbConnectionError(Exception):
     pass
 
@@ -39,6 +41,50 @@ class RecipeDatabase:
                 return "wrong query"
         except Exception as e:
             raise DbConnectionError(f"Failed to connect to database. Error: {e}")
+        finally:
+            conn.close()
+
+    def add_recipes_to_menu(self, start_date:str, end_date:str, recipe_ids_list):
+        self.add_weekly_meal_plan(start_date, end_date)
+        plan_id = 5
+        conn = self.db_connection.get_connection_to_db()
+        try:
+            cursor = conn.cursor()
+            for index, recipe_id in enumerate(recipe_ids_list, start=1):
+                sql_query = f"CALL AddMealPlanRecipe({plan_id}, {recipe_id}, 'day_{index}');"
+                print(sql_query)
+                cursor.execute(sql_query)
+                conn.commit()
+            return 200
+
+        except Exception as e:
+            raise DbConnectionError(f"Failed to connect to database. Error: {e}")
+
+        finally:
+            conn.close()
+
+    def add_weekly_meal_plan(self, start_date:str, end_date:str):
+        # Convert date strings to datetime objects
+        start_date_obj = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        end_date_obj = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+        conn = self.db_connection.get_connection_to_db()
+        try:
+            cursor = conn.cursor()
+            # Format the dates in the required format ('YYYY-MM-DD')
+            formatted_start_date = start_date_obj.strftime('%Y-%m-%d')
+            formatted_end_date = end_date_obj.strftime('%Y-%m-%d')
+
+            # Your SQL query to call the stored procedure
+            sql_query = f"CALL AddWeeklyMealPlan('{formatted_start_date}', '{formatted_end_date}')"
+
+            # Execute the query
+            cursor.execute(sql_query)
+            conn.commit()
+            return 200
+
+        except Exception as e:
+            raise DbConnectionError(f"Failed to connect to database. Error: {e}")
+
         finally:
             conn.close()
 

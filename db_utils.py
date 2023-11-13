@@ -12,8 +12,12 @@ recipe_db = RecipeDatabase(conn)
 
 
 try:
-    result = recipe_db.upload_item_to_db(item_to_upload="recipe", tuple_with_data=('TESTING', 'Classic Italian pasta dish', 'Cook pasta, mix with egg and cheese mixture, add crispy bacon', 15, 15, 4, 'Italian', 'Easy', 'spaghetti.jpg'))
-    print(result)
+    # result = recipe_db.upload_item_to_db(item_to_upload="recipe", tuple_with_data=('TESTING', 'Classic Italian pasta dish', 'Cook pasta, mix with egg and cheese mixture, add crispy bacon', 15, 15, 4, 'Italian', 'Easy', 'spaghetti.jpg'))
+    # print(result)
+    pass
+    # result = recipe_db.add_recipes_to_menu('2025-11-30', '2025-12-15', [122, 128, 77])
+    # print(result)
+
 except DbConnectionError as e:
     print(e)
 
