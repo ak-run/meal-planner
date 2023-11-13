@@ -44,15 +44,12 @@ class RecipeDatabase:
         finally:
             conn.close()
 
-    def add_recipes_to_menu(self, start_date:str, end_date:str, recipe_ids_list):
-        self.add_weekly_meal_plan(start_date, end_date)
-        plan_id = 5
+    def add_recipes_to_menu(self, plan_id: int, recipe_ids_list):
         conn = self.db_connection.get_connection_to_db()
         try:
             cursor = conn.cursor()
             for index, recipe_id in enumerate(recipe_ids_list, start=1):
                 sql_query = f"CALL AddMealPlanRecipe({plan_id}, {recipe_id}, 'day_{index}');"
-                print(sql_query)
                 cursor.execute(sql_query)
                 conn.commit()
             return 200
@@ -80,7 +77,11 @@ class RecipeDatabase:
             # Execute the query
             cursor.execute(sql_query)
             conn.commit()
-            return 200
+            # Retrieve the last auto-incremented ID
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            generated_id = cursor.fetchone()[0]
+
+            return generated_id  # Return the generated ID
 
         except Exception as e:
             raise DbConnectionError(f"Failed to connect to database. Error: {e}")

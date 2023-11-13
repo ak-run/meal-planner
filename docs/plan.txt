@@ -1,6 +1,9 @@
-- when creating a menu, need to be able to get the id from it to then pass onto query to add recipes to that menu
-- then display message to the user menu number 5 created
+
+- write test for new functions
 - make a page to display a menu to the user using one of the views? and something to display all recipe details like in the existing function
+- make a page to display next menu in the future - so the start date in the future closest to the day today, use sql query, datetime module
+- get the form to clear in adding weekly menu and adding a recipe
+- Make a page to get the recipes from a weekly menu and create a shopping list
 
 MAIN FUNCTIONS
 - find and display recipe
