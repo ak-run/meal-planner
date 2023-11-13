@@ -1,6 +1,6 @@
-- Make function to add a recipe and flask form for it
-- think how to create menu and shopping list
-
+- when creating a menu, need to be able to get the id from it to then pass onto query to add recipes to that menu
+- then display message to the user menu number 5 created
+- make a page to display a menu to the user using one of the views? and something to display all recipe details like in the existing function
 
 MAIN FUNCTIONS
 - find and display recipe

@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Regexp
 import secrets
 
 
@@ -41,6 +41,11 @@ class AddRecipeForm(FlaskForm):
     image_url = StringField('Image URL', validators=[DataRequired(), Length(1, 255)])
     submit = SubmitField('Submit')
 
+class AddRecipesToMenuForm(FlaskForm):
+    start_date = StringField('Start Date (YYYY-MM-DD)', validators=[DataRequired(), Regexp(r'^\d{4}-\d{2}-\d{2}$', message='Invalid date format. Use YYYY-MM-DD.')])
+    end_date = StringField('End Date (YYYY-MM-DD)', validators=[DataRequired(), Regexp(r'^\d{4}-\d{2}-\d{2}$', message='Invalid date format. Use YYYY-MM-DD.')])
+    recipe_ids = StringField('Recipe IDs (comma-separated)', validators=[DataRequired(), Length(min=1, message='At least one recipe ID is required.')])
+    submit = SubmitField('Add Recipes to Menu')
 
 @app.route('/')
 def welcome():
@@ -117,6 +122,28 @@ def add_recipe():
             return 'An error occurred', 500
 
     return render_template('add_recipe.html', add_recipe_form=form, results=results, message=message)
+
+
+@app.route('/recipes/add_to_menu', methods=['GET', 'POST'])
+def add_recipes_to_menu_route():
+    form = AddRecipesToMenuForm()
+
+    if form.validate_on_submit():
+        start_date = form.start_date.data
+        end_date = form.end_date.data
+        recipe_ids = [int(id.strip()) for id in form.recipe_ids.data.split(',')]
+
+        try:
+            result = recipe_db.add_recipes_to_menu(start_date, end_date, recipe_ids)
+            # Handle the result as needed
+        except DbConnectionError as e:
+            # Handle database connection errors
+            return str(e), 500
+        except Exception as e:
+            # Handle other unexpected errors
+            return 'An error occurred', 500
+
+    return render_template('add_to_menu.html', form=form)
 
 
 if __name__ == '__main__':
